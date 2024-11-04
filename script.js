@@ -5,7 +5,7 @@ const closeModalBtn = document.querySelector('.close-modal');
 
 // Open modal on button click
 openModalBtn.addEventListener('click', () => {
-  modal.style.display = 'flex';
+  modal.style.display = 'block'; // Change to 'block' for Cypress compatibility
 });
 
 // Close modal on close button click
