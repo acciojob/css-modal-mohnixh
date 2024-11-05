@@ -14,12 +14,14 @@ closeModalBtn.addEventListener('click', () => {
   modal.style.display = 'none'; // Hide modal
 });
 
-// Prevent click events within modal content from closing the modal
+// Prevent clicks inside modal content from closing the modal
 modalContent.addEventListener('click', (e) => {
   e.stopPropagation();
 });
 
-// Close modal when clicking outside modal content (on the overlay)
-modal.addEventListener('click', () => {
-  modal.style.display = 'none'; // Hide modal
+// Close modal when clicking on the overlay outside modal content
+modal.addEventListener('click', (e) => {
+  if (e.target === modal) { // Ensure the click is on the overlay, not the content
+    modal.style.display = 'none';
+  }
 });
