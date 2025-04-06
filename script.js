@@ -1,28 +1,37 @@
-document.addEventListener('DOMContentLoaded', function () {
-  const modal = document.getElementById('modal');
-  const openModalBtn = document.getElementById('openModal');
-  const closeModalBtn = document.querySelector('.close-modal');
-  const modalContent = document.querySelector('.modal-content');
-
-  // Open modal
-  openModalBtn.addEventListener('click', function () {
-    modal.style.display = 'block';
+describe("example to-do app", () => {
+  beforeEach(() => {
+    cy.visit("/");
   });
 
-  // Close modal when clicking close button
-  closeModalBtn.addEventListener('click', function () {
-    modal.style.display = 'none';
+  it("should close modal when close button is clicked", () => {
+    // Open modal
+    cy.get("#openModal").click();
+
+    // Close modal via close button (force click due to pointer-events)
+    cy.get(".close-modal").click({ force: true });
+
+    // Assert modal is closed
+    cy.get(".modal").should("have.css", "display", "none");
   });
 
-  // TEMP disable pointer-events from modal-content for Cypress
-  modal.addEventListener('click', function (e) {
-    if (e.target === modal) {
-      modal.style.display = 'none';
-    }
-  });
+  it("should close modal when clicking outside of modal", () => {
+    // Open modal
+    cy.get("#openModal").click();
 
-  // This ensures Cypress can click background:
-  if (window.Cypress) {
-    modalContent.style.pointerEvents = 'none';
-  }
+    // Temporarily disable pointer events for test
+    cy.window().then(win => {
+      win.document.querySelector('.modal-content').style.pointerEvents = 'none';
+    });
+
+    // Click outside modal (on the overlay)
+    cy.get(".modal").click("topLeft");
+
+    // Assert modal is closed
+    cy.get(".modal").should("have.css", "display", "none");
+
+    // Restore pointer-events
+    cy.window().then(win => {
+      win.document.querySelector('.modal-content').style.pointerEvents = 'auto';
+    });
+  });
 });
