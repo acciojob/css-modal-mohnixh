@@ -16,13 +16,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Close modal when clicking outside modal content
   modal.addEventListener('click', function(e) {
+    // Check if the click is directly on the modal background (not content)
     if (e.target === modal) {
       modal.style.display = 'none';
     }
   });
 
-  // Prevent clicks inside modal content from closing modal
-  modalContent.addEventListener('click', function(e) {
-    e.stopPropagation();
-  });
+  // No need for stopPropagation since we're checking e.target directly
 });
