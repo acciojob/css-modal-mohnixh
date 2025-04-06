@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Open modal
   openModalBtn.addEventListener('click', function() {
-    modal.style.display = 'flex';
+    modal.style.display = 'block';
   });
 
   // Close modal when clicking close button
