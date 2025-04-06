@@ -1,27 +1,28 @@
-// Get the modal, open button, and close button
-const modal = document.getElementById('modal');
-const openModalBtn = document.getElementById('openModal');
-const closeModalBtn = document.querySelector('.close-modal');
-const modalContent = document.querySelector('.modal-content');
+document.addEventListener('DOMContentLoaded', function() {
+  const modal = document.getElementById('modal');
+  const openModalBtn = document.getElementById('openModal');
+  const closeModalBtn = document.querySelector('.close-modal');
+  const modalContent = document.querySelector('.modal-content');
 
-// Open modal on button click
-openModalBtn.addEventListener('click', () => {
-  modal.style.display = 'block'; // Show modal
-});
+  // Open modal
+  openModalBtn.addEventListener('click', function() {
+    modal.style.display = 'flex';
+  });
 
-// Close modal on close button click
-closeModalBtn.addEventListener('click', () => {
-  modal.style.display = 'none'; // Hide modal
-});
-
-// Prevent clicks inside modal content from closing the modal
-modalContent.addEventListener('click', (e) => {
-  e.stopPropagation();
-});
-
-// Close modal when clicking on the overlay outside modal content
-modal.addEventListener('click', (e) => {
-  if (e.target === modal) { // Ensure the click is on the overlay, not the content
+  // Close modal when clicking close button
+  closeModalBtn.addEventListener('click', function() {
     modal.style.display = 'none';
-  }
+  });
+
+  // Close modal when clicking outside modal content
+  modal.addEventListener('click', function(e) {
+    if (e.target === modal) {
+      modal.style.display = 'none';
+    }
+  });
+
+  // Prevent clicks inside modal content from closing modal
+  modalContent.addEventListener('click', function(e) {
+    e.stopPropagation();
+  });
 });
